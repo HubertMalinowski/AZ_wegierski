@@ -26,9 +26,10 @@ Plik tekstowy `input.txt` zawiera wagową macierz sąsiedztwa grafu dwudzielnego
 
 ### Przykład:
 
+```
 n 10
 2 5
-
+```
 
 Oznacza:
 - \( L = \{0, 1\} \), \( R = \{2, 3\} \)
@@ -48,11 +49,12 @@ Plik `output.txt` zawiera:
 
 ### Przykład:
 
+```
 9
 0 4
 1 3
 2 5
-
+```
 
 ---
 
