@@ -1,0 +1,69 @@
+# Foldery binarne i buildów
+bin/
+obj/
+out/
+
+# Pliki tymczasowe i logi
+*.log
+*.tlog
+*.vspscc
+*.vssscc
+
+# Ustawienia użytkownika (Visual Studio/Code itp.)
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+.vscode/
+
+# Pliki systemowe
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Pliki z backupu i cache
+*.bak
+*.tmp
+*.swp
+*.DS_Store
+
+# Konfiguracje NuGet
+project.lock.json
+project.fragment.lock.json
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Pliki środowiskowe i tajne dane
+.env
+*.secrets.json
+
+# Testowe pliki raportów
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# Dotnet lokalne narzędzia
+.localtoolmanifest.json
+
+# Buildy MAUI / Xamarin
+*.apk
+*.aab
+*.apks
+*.ipa
+*.app
+
+# Inne IDE (opcjonalnie)
+*.tmproj
+*.ncb
+*.opensdf
+*.sdf
+*.cache
