@@ -1,32 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Models;
+using System.Globalization;
 
-using Models;
 public class Program
 {
     public static void Main(string[] args)
     {
-        var L = new List<Vertex> { new Vertex("l1"), new Vertex("l2"), new Vertex("l3") };
-        var R = new List<Vertex> { new Vertex("r1"), new Vertex("r2"), new Vertex("r3") };
+        // Do zakomentowania, aby samemu podać plik wejściowy
+        InputGenerator.Generate("input.txt", n: 3);
 
-        var edges = new List<Edge>
+        string inputPath = "input.txt";
+        string outputPath = "output.txt";
+
+        var lines = File.ReadAllLines(inputPath);
+        int n = lines.Length;
+
+        var L = Enumerable.Range(0, n).Select(i => new Vertex(i.ToString())).ToList();
+        var R = Enumerable.Range(n, n).Select(i => new Vertex(i.ToString())).ToList();
+        var edges = new List<Edge>();
+
+        for (int i = 0; i < n; i++)
         {
-            new Edge(L[0], R[0], 1),
-            new Edge(L[0], R[1], 0),
-            new Edge(L[0], R[2], 0),
-            new Edge(L[1], R[0], 0),
-            new Edge(L[1], R[1], 4),
-            new Edge(L[1], R[2], 0),
-            new Edge(L[2], R[0], 0),
-            new Edge(L[2], R[1], 0),
-            new Edge(L[2], R[2], 3)
-        };
+            var tokens = lines[i].Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            for (int j = 0; j < n; j++)
+            {
+                string token = tokens[j].Trim().ToLower();
+                if (token != "n")
+                {
+                    if (double.TryParse(token, NumberStyles.Float, CultureInfo.InvariantCulture, out double weight))
+                    {
+                        edges.Add(new Edge(L[i], R[j], weight));
+                    }
+                    else
+                    {
+                        throw new Exception($"Nieprawidłowa wartość w pliku: {token}");
+                    }
+                }
+                // brak krawędzi = brak dodania
+            }
+        }
 
         var hungarian = new HungarianAlgorithm(L, R, edges);
         var matching = hungarian.Run();
 
+        // Oblicz łączną wagę
+        double totalWeight = matching.Sum(pair =>
+            edges.FirstOrDefault(e => e.Left == pair.Item1 && e.Right == pair.Item2)?.Weight ?? 0);
+
+        using var writer = new StreamWriter(outputPath);
+        writer.WriteLine(totalWeight.ToString(CultureInfo.InvariantCulture));
+
         foreach (var (l, r) in matching)
-            Console.WriteLine($"{l.Id} ↔ {r.Id}");
+        {
+            writer.WriteLine($"{l.Id} {r.Id}");
+        }
+
+        Console.WriteLine($"Zapisano wynik do pliku: {outputPath}");
     }
 }
