@@ -15,14 +15,33 @@ namespace Models
 
         public List<(Vertex, Vertex)> Run()
         {
+            if(L.Count != R.Count)
+            {
+                throw new Exception("Bivariate classes have different counts");
+            }
+
+            var connectedVertices = new HashSet<Vertex>();
+            foreach(var edge in Edges)
+            {
+                connectedVertices.Add(edge.Left);
+                connectedVertices.Add(edge.Right);
+            }
+
             // 1. Initialize labels
             foreach (var l in L)
             {
+                if (!connectedVertices.Contains(l))
+                    throw new Exception("Isolated vertex found, no matching");
                 var maxWeight = Edges.Where(e => e.Left == l).Max(e => e.Weight);
                 l.Label = maxWeight;
             }
             foreach (var r in R)
+            {
+                if (!connectedVertices.Contains(r))
+                    throw new Exception("Isolated vertex found, no matching");
                 r.Label = 0;
+            }
+
 
             // 2. Initialize matching (empty)
             var matching = new List<(Vertex, Vertex)>();
