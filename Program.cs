@@ -6,8 +6,8 @@ public class Program
     public static void Main(string[] args)
     {
 
-        string inputPath = "input.txt";
-        string outputPath = "output.txt";
+        string inputPath = "C:\\Users\\Piotr\\source\\AZ\\AZ_wegierski\\input.txt";
+        string outputPath = "C:\\Users\\Piotr\\source\\AZ\\AZ_wegierski\\output.txt";
         // Do zakomentowania, aby samemu podać plik wejściowy
         //InputGenerator.Generate(inputPath, n: 3);
 
@@ -41,18 +41,12 @@ public class Program
             }
         }
 
-        double maxWeight = 0;
-        foreach(var edge in edges)
-        {
-            if (edge.Weight > maxWeight)
-                maxWeight = edge.Weight;
-        }
-        var edgesChanged = new List<Edge>();
-        foreach (var edge in edges)
-        {
-            edgesChanged.Add(new Edge(edge.Left, edge.Right, maxWeight - edge.Weight));
+        // 1. Get the maximum weight
+        double maxWeight = edges.Max(edge => edge.Weight);
 
-        }
+        // 2. Create the new list with transformed weights
+        var edgesChanged = edges.Select(edge => new Edge(edge.Left, edge.Right, maxWeight - edge.Weight))
+                                .ToList();
 
         var hungarian = new HungarianAlgorithm(L, R, edgesChanged);
         var matching = hungarian.Run();
