@@ -5,11 +5,13 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        // Do zakomentowania, aby samemu podać plik wejściowy
-        InputGenerator.Generate("input.txt", n: 3);
 
         string inputPath = "input.txt";
         string outputPath = "output.txt";
+        // Do zakomentowania, aby samemu podać plik wejściowy
+        //InputGenerator.Generate(inputPath, n: 3);
+
+
 
         var lines = File.ReadAllLines(inputPath);
         int n = lines.Length;
@@ -39,7 +41,20 @@ public class Program
             }
         }
 
-        var hungarian = new HungarianAlgorithm(L, R, edges);
+        double maxWeight = 0;
+        foreach(var edge in edges)
+        {
+            if (edge.Weight > maxWeight)
+                maxWeight = edge.Weight;
+        }
+        var edgesChanged = new List<Edge>();
+        foreach (var edge in edges)
+        {
+            edgesChanged.Add(new Edge(edge.Left, edge.Right, maxWeight - edge.Weight));
+
+        }
+
+        var hungarian = new HungarianAlgorithm(L, R, edgesChanged);
         var matching = hungarian.Run();
 
         // Oblicz łączną wagę
