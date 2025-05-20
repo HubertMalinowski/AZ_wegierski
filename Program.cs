@@ -6,12 +6,11 @@ public class Program
     public static void Main(string[] args)
     {
 
-        string inputPath = "C:\\Users\\Piotr\\source\\AZ\\AZ_wegierski\\input.txt";
-        string outputPath = "C:\\Users\\Piotr\\source\\AZ\\AZ_wegierski\\output.txt";
+        string inputPath = "input.txt";
+        string outputPath = "output.txt";
+        using var writer = new StreamWriter(outputPath);
         // Do zakomentowania, aby samemu podać plik wejściowy
-        //InputGenerator.Generate(inputPath, n: 3);
-
-
+        InputGenerator.Generate(inputPath, n: 3);
 
         var lines = File.ReadAllLines(inputPath);
         int n = lines.Length;
@@ -23,6 +22,11 @@ public class Program
         for (int i = 0; i < n; i++)
         {
             var tokens = lines[i].Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            if (tokens.Length != n)
+            {
+                writer.WriteLine("Different size of bivarte classes");
+                throw new Exception("Bivariate classes have different counts");
+            }
             for (int j = 0; j < n; j++)
             {
                 string token = tokens[j].Trim().ToLower();
@@ -41,6 +45,30 @@ public class Program
             }
         }
 
+        var connectedVertices = new HashSet<Vertex>();
+        foreach (var edge in edges)
+        {
+            connectedVertices.Add(edge.Left);
+            connectedVertices.Add(edge.Right);
+        }
+
+        foreach(var l in L)
+        {
+            if (!connectedVertices.Contains(l))
+            {
+                writer.WriteLine("Isolated vertex found, no matching");
+                throw new Exception("Isolated vertex found, no matching");
+            }
+        }
+        foreach (var r in R)
+        {
+            if (!connectedVertices.Contains(r))
+            {
+                writer.WriteLine("Isolated vertex found, no matching");
+                throw new Exception("Isolated vertex found, no matching");
+            }
+        }
+
         // 1. Get the maximum weight
         double maxWeight = edges.Max(edge => edge.Weight);
 
@@ -55,7 +83,6 @@ public class Program
         double totalWeight = matching.Sum(pair =>
             edges.FirstOrDefault(e => e.Left == pair.Item1 && e.Right == pair.Item2)?.Weight ?? 0);
 
-        using var writer = new StreamWriter(outputPath);
         writer.WriteLine(totalWeight.ToString(CultureInfo.InvariantCulture));
 
         foreach (var (l, r) in matching)
