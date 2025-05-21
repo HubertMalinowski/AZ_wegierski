@@ -5,7 +5,6 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        // Ustaw true jeżeli chcesz przeprowadzić eksperymenty
         bool runExperiments = false;
         string inputPath = "input.txt";
         string outputPath = "output.txt";
@@ -16,7 +15,7 @@ public class Program
         {
             if (args[0] == "--test")
             {
-                // Funkcja do testowania
+                bool runExperiments = true;
             }
             else if (args[0] == "--random")
             {
