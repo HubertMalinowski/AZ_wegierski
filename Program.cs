@@ -11,8 +11,19 @@ public class Program
         string inputPath = "input.txt";
         string outputPath = "output.txt";
         using var writer = new StreamWriter(outputPath);
-        // Do zakomentowania, aby samemu podać plik wejściowy
-        InputGenerator.Generate(inputPath, n: 100);
+
+        // Ewentualne argumenty
+        if (args.Length > 0)
+        {
+            if (args[0] == "--test")
+            {
+                bool runExperiments = true;
+            }
+            else if (args[0] == "--random")
+            {
+                InputGenerator.Generate(inputPath, n: 3);
+            }
+        }
 
         var lines = File.ReadAllLines(inputPath);
         int n = lines.Length;
