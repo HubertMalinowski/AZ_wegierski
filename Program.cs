@@ -5,9 +5,10 @@ public class Program
 {
     public static void Main(string[] args)
     {
-
-        string inputPath = "C:\\Users\\Piotr\\source\\AZ\\AZ_wegierski\\input.txt";
-        string outputPath = "C:\\Users\\Piotr\\source\\AZ\\AZ_wegierski\\output.txt";
+        // Ustaw true jeżeli chcesz przeprowadzić eksperymenty
+        bool runExperiments = false;
+        string inputPath = "input.txt";
+        string outputPath = "output.txt";
         using var writer = new StreamWriter(outputPath);
         // Do zakomentowania, aby samemu podać plik wejściowy
         InputGenerator.Generate(inputPath, n: 10);
@@ -57,7 +58,8 @@ public class Program
             if (!connectedVertices.Contains(l))
             {
                 writer.WriteLine("Isolated vertex found, no matching");
-                Experiments.Experiment_1();
+                if (runExperiments)
+                    Experiments.Experiment_1();
                 return;
             }
         }
@@ -66,7 +68,8 @@ public class Program
             if (!connectedVertices.Contains(r))
             {
                 writer.WriteLine("Isolated vertex found, no matching");
-                Experiments.Experiment_1();
+                if (runExperiments)
+                    Experiments.Experiment_1();
                 return;
             }
         }
@@ -94,6 +97,9 @@ public class Program
 
         Console.WriteLine($"Zapisano wynik do pliku: {outputPath}");
 
-        Experiments.Experiment_1();
+        if (runExperiments)
+        {
+            Experiments.Experiment_1();
+        }
     }
 }
