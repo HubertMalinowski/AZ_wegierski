@@ -6,12 +6,13 @@ public class Program
     public static void Main(string[] args)
     {
         // Ustaw true jeżeli chcesz przeprowadzić eksperymenty
-        bool runExperiments = false;
+        bool runExperiments = true;
+        string exp_nr = "100"; // Zmień wartość dla plików wejściowych input_{exp_nr}.txt
         string inputPath = "input.txt";
         string outputPath = "output.txt";
         using var writer = new StreamWriter(outputPath);
         // Do zakomentowania, aby samemu podać plik wejściowy
-        InputGenerator.Generate(inputPath, n: 10);
+        InputGenerator.Generate(inputPath, n: 100);
 
         var lines = File.ReadAllLines(inputPath);
         int n = lines.Length;
@@ -26,7 +27,7 @@ public class Program
             if (tokens.Length != n)
             {
                 writer.WriteLine("Different size of bivarte classes");
-                throw new Exception("Bivariate classes have different counts");
+                return;
             }
             for (int j = 0; j < n; j++)
             {
@@ -58,8 +59,12 @@ public class Program
             if (!connectedVertices.Contains(l))
             {
                 writer.WriteLine("Isolated vertex found, no matching");
+                writer.Close();
                 if (runExperiments)
+                {
                     Experiments.Experiment_1();
+                    Experiments.Experiment_nr(exp_nr);
+                }
                 return;
             }
         }
@@ -68,8 +73,12 @@ public class Program
             if (!connectedVertices.Contains(r))
             {
                 writer.WriteLine("Isolated vertex found, no matching");
+                writer.Close();
                 if (runExperiments)
+                {
                     Experiments.Experiment_1();
+                    Experiments.Experiment_nr(exp_nr);
+                }
                 return;
             }
         }
@@ -96,10 +105,12 @@ public class Program
         }
 
         Console.WriteLine($"Zapisano wynik do pliku: {outputPath}");
+        writer.Close();
 
         if (runExperiments)
         {
             Experiments.Experiment_1();
+            Experiments.Experiment_nr(exp_nr);
         }
     }
 }
