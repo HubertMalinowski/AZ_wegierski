@@ -60,8 +60,14 @@ Plik `output.txt` zawiera:
 
 ## Uruchamianie
 
-1. Plik wejściowy generuje się automatycznie przy uruchomieniu programu, w celu zaplokowania opcji trzega zakomentować odpowiednią linijkę w Program.cs:
+Przed uruchomieniem programu należy przygotować plik wejściowy `input.txt`. Alternatywnie, możliwe jest automatyczne wygenerowanie przykładowego pliku za pomocą poniższej komendy:
 
 ```bash
-dotnet run
+dotnet run --random
+```
+
+Aby przeprowadzić testy działania programu, użyj komendy:
+
+```bash
+dotnet run --test
 ```
