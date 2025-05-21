@@ -5,7 +5,8 @@ public class Program
 {
     public static void Main(string[] args)
     {
-
+        // Ustaw true jeżeli chcesz przeprowadzić eksperymenty
+        bool runExperiments = false;
         string inputPath = "input.txt";
         string outputPath = "output.txt";
         using var writer = new StreamWriter(outputPath);
@@ -68,7 +69,9 @@ public class Program
             if (!connectedVertices.Contains(l))
             {
                 writer.WriteLine("Isolated vertex found, no matching");
-                throw new Exception("Isolated vertex found, no matching");
+                if (runExperiments)
+                    Experiments.Experiment_1();
+                return;
             }
         }
         foreach (var r in R)
@@ -76,7 +79,9 @@ public class Program
             if (!connectedVertices.Contains(r))
             {
                 writer.WriteLine("Isolated vertex found, no matching");
-                throw new Exception("Isolated vertex found, no matching");
+                if (runExperiments)
+                    Experiments.Experiment_1();
+                return;
             }
         }
 
@@ -102,5 +107,10 @@ public class Program
         }
 
         Console.WriteLine($"Zapisano wynik do pliku: {outputPath}");
+
+        if (runExperiments)
+        {
+            Experiments.Experiment_1();
+        }
     }
 }
