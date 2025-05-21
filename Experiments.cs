@@ -15,8 +15,13 @@ class Experiments
         List<int> sizes = new List<int>() { 10, 20, 50, 100, 200, 500 };
         Stopwatch stopwatch = new Stopwatch();
         List<float> mean_results = new List<float>();
-        foreach(int h in sizes)
+        
+        Console.WriteLine("Rozpoczynam eksperymenty");
+        Console.Write("Proszę czekać");
+
+        foreach (int h in sizes)
         {
+            Console.Write(".");
             stopwatch.Start();
             for (int k = 0; k < 20; k++)
             {
@@ -101,7 +106,7 @@ class Experiments
         // to make the n^3 curve comparable to your mean_results.
         // Start with 1.0 and adjust it until the curve roughly matches your data's scale.
         double scaleFactor = 0.000001; // Adjust this value!
-        double[] nCubedData = xData.Select(n => Math.Pow(n, 4) * scaleFactor).ToArray();
+        double[] nCubedData = xData.Select(n => Math.Pow(n, 3) * scaleFactor).ToArray();
 
 
         var plt = new Plot(); // Create a new Plot object
@@ -109,14 +114,14 @@ class Experiments
         // Add scatter plot for actual results (dots only)
         var scatterPlot = plt.Add.Scatter(xData, yData);
         scatterPlot.Color = ScottPlot.Colors.Blue;
-        scatterPlot.Label = "Mean Execution Time (Actual)";
+        scatterPlot.LegendText = "Mean Execution Time (Actual)";
         scatterPlot.MarkerSize = 5;
         scatterPlot.LineStyle.IsVisible = false; // Hide the line for the scatter plot
 
         // Add a line plot for actual results (connecting points, no markers)
         var trendLine = plt.Add.Scatter(xData, yData);
         trendLine.Color = ScottPlot.Colors.Red;
-        trendLine.Label = "Mean Execution Time (Trend)";
+        trendLine.LegendText = "Mean Execution Time (Trend)";
         trendLine.LineStyle.IsVisible = true;
         trendLine.MarkerStyle.IsVisible = false;
         trendLine.LineStyle.Width = 2;
@@ -124,7 +129,7 @@ class Experiments
         // Add the N^3 complexity line
         var nCubedPlot = plt.Add.Scatter(xData, nCubedData);
         nCubedPlot.Color = ScottPlot.Colors.Green;
-        nCubedPlot.Label = $"O(n^4) (scaled by {scaleFactor})"; // Indicate the scaling factor
+        nCubedPlot.LegendText = $"O(n^3) (scaled by {scaleFactor})"; // Indicate the scaling factor
         nCubedPlot.LineStyle.IsVisible = true;
         nCubedPlot.MarkerStyle.IsVisible = false;
         nCubedPlot.LineStyle.Width = 2;
@@ -136,7 +141,7 @@ class Experiments
         plt.XLabel("Input Size (n)");
         plt.YLabel("Time (ms)"); // Changed to "Time (ms)" as it now includes a theoretical curve
         plt.Legend.IsVisible = true;
-        plt.Legend.Location = ScottPlot.Alignment.UpperLeft;
+        plt.Legend.Alignment = ScottPlot.Alignment.UpperLeft;
 
         // Set axis limits (optional, but good for consistent scaling)
         // Ensure Y-axis limits accommodate both actual data and the scaled N^3 data
@@ -145,10 +150,10 @@ class Experiments
         plt.Axes.SetLimitsY(0, maxY * 1.1);
 
         // Save the plot to an image file
-        string plotFileName = "performance_plot_with_n4.png"; // Changed filename to reflect new plot
+        string plotFileName = "performance_plot_with_n3.png"; // Changed filename to reflect new plot
         plt.SavePng(plotFileName, 1000, 600);
 
-        Console.WriteLine($"\nPlot saved to {plotFileName}");
+        Console.WriteLine($"\nWykres zapisany do {plotFileName}");
     }
 
 }

@@ -60,13 +60,19 @@ Plik `output.txt` zawiera:
 
 ## Uruchamianie
 
-Przed uruchomieniem programu należy przygotować plik wejściowy `input.txt`. Alternatywnie, możliwe jest automatyczne wygenerowanie przykładowego pliku za pomocą poniższej komendy:
+Przed uruchomieniem programu należy przygotować plik wejściowy `input.txt`. Alternatywnie, możliwe jest automatyczne wygenerowanie przykładowego pliku za pomocą poniższej komendy (n oznacza liczność jednego zbioru):
 
 ```bash
-dotnet run --random
+dotnet run --random <n>
 ```
 
-Aby przeprowadzić testy działania programu, użyj komendy:
+Aby przeprowadzić testy działania programu, należy dodać pakiet:
+
+```bash
+dotnet add package ScottPlot
+```
+
+Następnie należy użyć komendy:
 
 ```bash
 dotnet run --test

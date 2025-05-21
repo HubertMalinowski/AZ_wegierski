@@ -128,7 +128,7 @@ namespace Models
             return matching;
         }
 
-        private List<(Vertex, Vertex)> FindAugmentingPath(List<(Vertex, Vertex)> matching)
+        private List<(Vertex, Vertex)>? FindAugmentingPath(List<(Vertex, Vertex)> matching)
         {
             // Reset search state at the beginning of each call!
             foreach (var l in L)

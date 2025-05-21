@@ -5,7 +5,6 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        bool runExperiments = false;
         string inputPath = "input.txt";
         string outputPath = "output.txt";
         using var writer = new StreamWriter(outputPath);
@@ -15,11 +14,29 @@ public class Program
         {
             if (args[0] == "--test")
             {
-                bool runExperiments = true;
+                Experiments.Experiment_1();
+                return;
             }
             else if (args[0] == "--random")
             {
-                InputGenerator.Generate(inputPath, n: 3);
+                if (args.Length > 1 && int.TryParse(args[1], out int randomN))
+                {
+                    inputPath = "input.txt";
+                    outputPath = "output.txt";
+                    InputGenerator.Generate(inputPath, randomN);
+                    Console.WriteLine($"Wygenerowano plik wejściowy {inputPath}");
+                }
+                else
+                {
+                    Console.WriteLine("Nieprawidłowy argument. Użyj --random <n>, aby wygenerować losowe dane.");
+                    inputPath = "input.txt";
+                    outputPath = "output.txt";
+                }
+            }
+            else
+            {
+                Console.WriteLine("Nieprawidłowy argument. Użyj --test, aby uruchomić eksperymenty lub --random <n>, aby wygenerować losowe dane.");
+                return;
             }
         }
 
@@ -68,8 +85,6 @@ public class Program
             if (!connectedVertices.Contains(l))
             {
                 writer.WriteLine("Isolated vertex found, no matching");
-                if (runExperiments)
-                    Experiments.Experiment_1();
                 return;
             }
         }
@@ -78,8 +93,6 @@ public class Program
             if (!connectedVertices.Contains(r))
             {
                 writer.WriteLine("Isolated vertex found, no matching");
-                if (runExperiments)
-                    Experiments.Experiment_1();
                 return;
             }
         }
@@ -106,10 +119,5 @@ public class Program
         }
 
         Console.WriteLine($"Zapisano wynik do pliku: {outputPath}");
-
-        if (runExperiments)
-        {
-            Experiments.Experiment_1();
-        }
     }
 }

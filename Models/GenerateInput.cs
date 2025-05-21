@@ -21,6 +21,6 @@ public class InputGenerator
             writer.WriteLine(string.Join(' ', row));
         }
 
-        Console.WriteLine($"Wygenerowano plik wejściowy: {filePath}");
+        // Console.WriteLine($"Wygenerowano plik wejściowy: {filePath}");
     }
 }
