@@ -53,7 +53,7 @@ public class Program
             if (tokens.Length != n)
             {
                 writer.WriteLine("Different size of bivarte classes");
-                throw new Exception("Bivariate classes have different counts");
+                return;
             }
             for (int j = 0; j < n; j++)
             {
