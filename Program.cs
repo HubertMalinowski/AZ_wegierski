@@ -10,7 +10,7 @@ public class Program
         string outputPath = "C:\\Users\\Piotr\\source\\AZ\\AZ_wegierski\\output.txt";
         using var writer = new StreamWriter(outputPath);
         // Do zakomentowania, aby samemu podać plik wejściowy
-        //InputGenerator.Generate(inputPath, n: 3);
+        InputGenerator.Generate(inputPath, n: 10);
 
         var lines = File.ReadAllLines(inputPath);
         int n = lines.Length;
