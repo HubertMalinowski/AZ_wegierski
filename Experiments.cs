@@ -12,7 +12,7 @@ class Experiments
 {
     public static void Experiment_1()
     {
-        List<int> sizes = new List<int>() { 10, 20, 50, 100, 200, 500 };
+        List<int> sizes = new List<int>() { 10, 20, 50, 100, 200, 500, 1000, 2000};
         Stopwatch stopwatch = new Stopwatch();
         List<float> mean_results = new List<float>();
         
