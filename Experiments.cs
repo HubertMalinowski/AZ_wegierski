@@ -156,9 +156,9 @@ class Experiments
         Console.WriteLine($"\nWykres zapisany do {plotFileName}");
     }
 
-    public static void Experiment_nr(string nr)
+    public static void Experiment_nr(int nr)
     {
-        string inputPath = String.Concat("input_", nr, ".txt");
+        string inputPath = String.Concat("input_", nr.ToString(), ".txt");
         string outputPath = "output.txt";
         using var writer = new StreamWriter(outputPath);
         // Do zakomentowania, aby samemu podać plik wejściowy
@@ -176,6 +176,7 @@ class Experiments
             if (tokens.Length != n)
             {
                 writer.WriteLine("Different size of bivarte classes");
+                writer.Close();
                 return;
             }
             for (int j = 0; j < n; j++)
@@ -189,6 +190,7 @@ class Experiments
                     }
                     else
                     {
+                        writer.Close();
                         throw new Exception($"Nieprawidłowa wartość w pliku: {token}");
                     }
                 }
@@ -208,6 +210,7 @@ class Experiments
             if (!connectedVertices.Contains(l))
             {
                 writer.WriteLine("Isolated vertex found, no matching");
+                writer.Close();
                 return;
             }
         }
@@ -216,6 +219,7 @@ class Experiments
             if (!connectedVertices.Contains(r))
             {
                 writer.WriteLine("Isolated vertex found, no matching");
+                writer.Close();
                 return;
             }
         }
@@ -240,6 +244,7 @@ class Experiments
         {
             writer.WriteLine($"{l.Id} {r.Id}");
         }
+        writer.Close();
     }
 
 }

@@ -7,14 +7,20 @@ public class Program
     {
         string inputPath = "input.txt";
         string outputPath = "output.txt";
-        using var writer = new StreamWriter(outputPath);
 
         // Ewentualne argumenty
         if (args.Length > 0)
         {
             if (args[0] == "--test")
             {
-                Experiments.Experiment_1();
+                if(args.Length > 1 && int.TryParse(args[1], out int expNR))
+                {
+                    Experiments.Experiment_nr(expNR);
+                }
+                else
+                {
+                    Experiments.Experiment_1();
+                }
                 return;
             }
             else if (args[0] == "--random")
@@ -40,6 +46,7 @@ public class Program
             }
         }
 
+        using var writer = new StreamWriter(outputPath);
         var lines = File.ReadAllLines(inputPath);
         int n = lines.Length;
 
