@@ -40,7 +40,7 @@ class Experiments
                     var tokens = lines[i].Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (tokens.Length != n)
                     {
-                        throw new Exception("Bivariate classes have different counts");
+                        throw new Exception("Bipartite classes have different counts");
                     }
                     for (int j = 0; j < n; j++)
                     {
