@@ -77,3 +77,8 @@ Następnie należy użyć komendy:
 ```bash
 dotnet run --test
 ```
+Opcjonalnie można przeprowadzić test na numrowanych plikach input_{nr}.txt stosując taką komendę, należy wcześniej przygotowac taki plik, przygotowalismy kilka o nr 1,2,3,4,5,100 :
+
+```bash
+dotnet run --test <n>
+```
