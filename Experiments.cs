@@ -23,7 +23,7 @@ class Experiments
         {
             Console.Write(".");
             stopwatch.Start();
-            for (int k = 0; k < 1; k++)
+            for (int k = 0; k < 20; k++)
             {
                 string inputPath = "input.txt";
                 InputGenerator.Generate(inputPath, n: h);
@@ -106,7 +106,7 @@ class Experiments
         // to make the n^3 curve comparable to your mean_results.
         // Start with 1.0 and adjust it until the curve roughly matches your data's scale.
         double scaleFactor = 0.000001; // Adjust this value!
-        double[] nCubedData = xData.Select(n => Math.Pow(n, 3) * scaleFactor).ToArray();
+        double[] nCubedData = xData.Select(n => Math.Pow(2*n, 3) * scaleFactor).ToArray();
 
 
         var plt = new Plot(); // Create a new Plot object
@@ -129,7 +129,7 @@ class Experiments
         // Add the N^3 complexity line
         var nCubedPlot = plt.Add.Scatter(xData, nCubedData);
         nCubedPlot.Color = ScottPlot.Colors.Green;
-        nCubedPlot.LegendText = $"O(n^3) (scaled by {scaleFactor})"; // Indicate the scaling factor
+        nCubedPlot.LegendText = $"O(2n^3) (scaled by {scaleFactor})"; // Indicate the scaling factor
         nCubedPlot.LineStyle.IsVisible = true;
         nCubedPlot.MarkerStyle.IsVisible = false;
         nCubedPlot.LineStyle.Width = 2;
@@ -150,7 +150,7 @@ class Experiments
         plt.Axes.SetLimitsY(0, maxY * 1.1);
 
         // Save the plot to an image file
-        string plotFileName = "performance_plot_with_n3.png"; // Changed filename to reflect new plot
+        string plotFileName = "performance_plot_with_n3_2.png"; // Changed filename to reflect new plot
         plt.SavePng(plotFileName, 1000, 600);
 
         Console.WriteLine($"\nWykres zapisany do {plotFileName}");
