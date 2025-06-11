@@ -11,23 +11,24 @@ public class Program
         // Ewentualne argumenty
         if (args.Length > 0)
         {
-            if (args[0] == "--test")
-            {
-                if(args.Length > 1 && int.TryParse(args[1], out int expNR))
-                {
-                    Experiments.Experiment_nr(expNR);
-                }
-                else
-                {
-                    Experiments.Experiment_1();
-                }
-                return;
-            }
-            else if (args[0] == "--random")
+            //if (args[0] == "--test")
+            //{
+            //    if(args.Length > 1 && int.TryParse(args[1], out int expNR))
+            //    {
+            //        Experiments.Experiment_nr(expNR);
+            //    }
+            //    else
+            //    {
+            //        Experiments.Experiment_1();
+            //    }
+            //    return;
+            //}
+            //else 
+            if (args[0] == "--random")
             {
                 if (args.Length > 1 && int.TryParse(args[1], out int randomN))
                 {
-                    inputPath = "input.txt";
+                    inputPath = $"gen{randomN}.txt";
                     outputPath = "output.txt";
                     InputGenerator.Generate(inputPath, randomN);
                     Console.WriteLine($"Wygenerowano plik wejściowy {inputPath}");
@@ -41,8 +42,22 @@ public class Program
             }
             else
             {
-                Console.WriteLine("Nieprawidłowy argument. Użyj --test, aby uruchomić eksperymenty lub --random <n>, aby wygenerować losowe dane.");
-                return;
+                // Assume the first two arguments are input and output paths
+                if (args.Length >= 2)
+                {
+                    inputPath = args[0];
+                    outputPath = args[1];
+                    Console.WriteLine($"Używam pliku wejściowego: {inputPath}");
+                    Console.WriteLine($"Używam pliku wyjściowego: {outputPath}");
+                }
+                else
+                {
+                    Console.WriteLine("Nieprawidłowe argumenty. Użyj:");
+                    Console.WriteLine("  <input_file> <output_file>               - aby przetworzyć pliki");
+                    Console.WriteLine("  --test [numer_eksperymentu]            - aby uruchomić eksperymenty");
+                    Console.WriteLine("  --random <rozmiar_macierzy>            - aby wygenerować losowe dane");
+                    return; // Exit if invalid arguments
+                }
             }
         }
 
